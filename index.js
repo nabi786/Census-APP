@@ -1,9 +1,9 @@
-
+require('dotenv').config()
 require('./config/dataBase')
 
 const express = require('express')
 const app = express()
-const PORT = 3000 
+const PORT = process.env.PORT;
 const bodyParser = require('body-parser')
 
 app.use(express.urlencoded({extended : true}))
