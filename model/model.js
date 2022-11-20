@@ -19,7 +19,12 @@ const schema = mongoose.Schema({
     ExpireDate : {
         type : String
     },
-    
+    Guardian_NIC : {
+        type : String
+    },
+    Guardian_Relation : {
+        type : String
+    },
     Census : {
         default : false
         
