@@ -9,25 +9,35 @@ const addNIC = async(req,res)=>{
 
         const nic = req.body.NIC
         
-        var matchNIC = await model.personData.findOne({NIC : nic}) 
-
+        var matchNIC = await model.personData.findOne({NIC : nic});
+        var guradianNic = await model.personData.findOne({NIC : req.body.Guardian_NIC});
+        var guardianID = "";
+        if(guradianNic != null){
+            guardianID = guradianNic._id; 
+        }
+        
+        
         if(!matchNIC){
-
+            
             var person = new model.personData({
-                
                 Name : req.body.Name,
                 NIC  : req.body.NIC,
                 Address : req.body.Address,
                 IssueDate : req.body.IssueDate,
                 ExpireDate : req.body.ExpireDate,
-                familyMembers : req.body.familyMembers
+                Guardian_NIC : guardianID,
+                Guardian_Relation : req.body.Guardian_Relation
             });
-
-
-
-
+            
+            
+            
+            
             
             await person.save()
+            if(guradianNic != null){
+                guradianNic.familyMembers.push(person._id)
+                await guradianNic.save();
+            }
             
             res.status(200).json({success : true, msg : "person details added successfully"})
 

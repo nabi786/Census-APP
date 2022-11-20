@@ -105,30 +105,24 @@ const add_to_Census_My_family = async (req,res)=>{
                     
                     // console.log(idsAry)
                     // cencus to whole family memebers
+                    
                     idsAry.forEach(async (item,index)=>{
-                        var data = await model.personData.findOneAndUpdate({_id : item},{Census : true});
-                        
+                        var data = await model.personData.findOneAndUpdate({_id : item},{Census : true}); 
                     });
-
-
                      // finding current family owner
-                     var familyOwner = await model.personData.findOne({NIC : currentFamilyOwnerNIC})
+                    var familyOwner = await model.personData.findOne({NIC : currentFamilyOwnerNIC});
 
                     familyOwner.familyMembers = idsAry;
 
-  
-                    
                     await familyOwner.save();
                     res.status(200).json({success: true, msg : "family census added successfully"});
                 }else{
-                    
-                    
-                    res.status(404).json({success: false, msg : "kinldy add item in array"})
+                    res.status(404).json({success: false, msg : "kinldy add item in array"});
                 }
 
             }else{
                 
-                res.status(404).json({success: false, msg : "kinldy send data in array formate"})
+                res.status(404).json({success: false, msg : "kinldy send data in array formate"});
             }
 
                 
