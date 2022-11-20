@@ -9,7 +9,7 @@ const bodyParser = require('body-parser')
 app.use(express.urlencoded({extended : true}))
 app.use(express.json())
 
-// routers
+// routers New 
 const census = require('./routers/census')
 const addNyc = require('./routers/addNyc')
 
